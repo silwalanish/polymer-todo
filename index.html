@@ -17,6 +17,7 @@
             display: block;
             border: 1px solid black;
             padding: 10px;
+            margin: 10px 0px;
           }
         </style>
         <div>[[text]]</div>
@@ -44,8 +45,11 @@
         <style>
         </style> 
         <div>
-          <div><input type="text" on-keydown="addTodo"></div>
-          
+          <div>
+            <p>Type add Press Enter to add.</p>
+            <input type="text" on-keydown="addTodo">
+          </div>
+          <h3>Todos:</h3>
           <template is="dom-repeat" items="{{todos}}">
             <todo-item text="[[item]]"></todo-item>
           </template>
