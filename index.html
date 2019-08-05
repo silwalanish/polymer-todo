@@ -1,0 +1,70 @@
+<script type="module">
+  import {PolymerElement, html} from '@polymer/polymer';
+  import '@polymer/polymer/lib/elements/dom-repeat.js';
+
+  class TODOItemElement extends PolymerElement {
+
+    static get properties () {
+      return {
+        text: String
+      };
+    }
+
+    static get template () {
+      return html`
+        <style>
+          :host{
+            display: block;
+            border: 1px solid black;
+            padding: 10px;
+          }
+        </style>
+        <div>[[text]]</div>
+      `;
+    }
+
+  }
+
+  customElements.define('todo-item', TODOItemElement);
+
+  class TODOElement extends PolymerElement {
+    static get properties() { 
+      return { 
+        todos: {
+          type: Array,
+          value () {
+            return [];
+          }
+        }
+      }
+    }
+    
+    static get template() {
+      return html`
+        <style>
+        </style> 
+        <div>
+          <div><input type="text" on-keydown="addTodo"></div>
+          
+          <template is="dom-repeat" items="{{todos}}">
+            <todo-item text="[[item]]"></todo-item>
+          </template>
+        </div>
+      `;
+    }
+
+
+    addTodo (e) {
+      if(e.keyCode == 13){
+        if(e.target.value.length > 0){
+          this.push("todos", e.target.value);
+          e.target.value = "";
+        }
+      }
+    }
+  }
+
+  customElements.define('my-todo', TODOElement);
+</script> 
+
+<my-todo></my-todo>
